@@ -1,8 +1,10 @@
-import { useState} from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
-    const [data, setData] = useState({})
+const NewPost = () => {
+    const [data, setData] = useState({
+        user_id: auth.user.id
+    })
     const navigate = useNavigate()
 
     const handleData = (e) => {
@@ -11,13 +13,9 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        window.axios.post('/api/login/', data)
+        window.axios.post('/api/posts/', data)
         .then(resp => {
-            if(resp.data.token) {
-                localStorage.setItem('auth', resp.data.token)
-                window.axios.defaults.headers.common['Authorization'] = `Bearer ${resp.data.token}`;
-                navigate('/')
-            }
+            navigate('/admin')
         })
         .catch(err => {
             console.log(err)
@@ -25,23 +23,31 @@ const Login = () => {
     }
 
     return (
-        <article className="article login">
-            <h1>Please Login</h1>
+        <article className="article">
+            <h1>New Article</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label>Email address:</label>
+                    <label>Post Title:</label>
                     <input
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="title"
                         onChange={handleData}
                         className="form-control"
                     />
                 </div>
                 <div className="mb-3">
-                    <label>Password:</label>
+                    <label>Post Content:</label>
+                    <textarea
+                        name="content"
+                        onChange={handleData}
+                        className="form-control"
+                    ></textarea>
+                </div>
+                <div className="mb-3">
+                    <label>Featured Image:</label>
                     <input
-                        type="password"
-                        name="password"
+                        type="text"
+                        name="image"
                         onChange={handleData}
                         className="form-control"
                     />
@@ -54,4 +60,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default NewPost

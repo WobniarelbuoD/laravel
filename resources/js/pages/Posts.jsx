@@ -63,7 +63,7 @@ const Posts = () =>{
         .catch(err => console.log(err))
 
     }, [refresh])
-    
+
 
 return(
 <>
@@ -87,8 +87,8 @@ return(
     </div>
     )}
  </div>
- 
- {!auth.loggedIn ?
+
+ {/* {!auth.loggedIn ?
             <form onSubmit={handleLogin}>
     <div className='mb-3'>
         <label>Email:</label>
@@ -101,7 +101,7 @@ return(
     <div>
         <button className='btn btn-primary'>Login</button>
     </div>
-        
+
 </form>
 
 :
@@ -122,9 +122,9 @@ return(
     <div>
         <button className='btn btn-primary'>Upload</button>
     </div>
-        
+
 </form>
-}
+} */}
  </>
 )}
 
